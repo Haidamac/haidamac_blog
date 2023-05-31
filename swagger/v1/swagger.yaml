@@ -1,0 +1,290 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/articles":
+    get:
+      summary: list articles
+      tags:
+      - Article
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type: string
+        description: Get articles after the first 15 by page number
+      - name: status
+        in: query
+        schema:
+          type: string
+          enum:
+          - unpublished
+          - published
+        description: 'Get articles with status: published/unpublished'
+      - name: author
+        in: query
+        schema:
+          type: string
+        description: Get articles by a specific author
+      - name: tags_ids
+        in: query
+        schema:
+          type: string
+        description: Filter articles by tags
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create article
+      tags:
+      - Article
+      parameters: []
+      responses:
+        '201':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                body:
+                  type: string
+                author_id:
+                  type: integer
+              required:
+              - title
+              - body
+              - author_id
+  "/api/v1/articles/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show article
+      tags:
+      - Article
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update article
+      tags:
+      - Article
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                body:
+                  type: string
+                author_id:
+                  type: integer
+                status:
+                  type: string
+                  enum:
+                  - unpublished
+                  - published
+              required: false
+    put:
+      summary: update article
+      tags:
+      - Article
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                body:
+                  type: string
+                author_id:
+                  type: integer
+                status:
+                  type: string
+                  enum:
+                  - unpublished
+                  - published
+              required: false
+    delete:
+      summary: delete article
+      tags:
+      - Article
+      responses:
+        '200':
+          description: Delete
+  "/api/v1/search":
+    get:
+      summary: search article
+      tags:
+      - Article
+      parameters:
+      - name: q
+        in: query
+        schema:
+          type: string
+        description: Search articles by phrase in title or body
+      responses:
+        '200':
+          description: successful
+  "/api/v1/order":
+    get:
+      summary: order articles
+      tags:
+      - Article
+      parameters:
+      - name: order
+        in: query
+        schema:
+          type: string
+        description: Order articles by title asc/desc
+      responses:
+        '200':
+          description: successful
+  "/api/v1/articles/{article_id}/comments":
+    parameters:
+    - name: article_id
+      in: path
+      description: article_id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: list comments
+      tags:
+      - Comment
+      parameters:
+      - name: status
+        in: query
+        schema:
+          type: string
+          enum:
+          - unpublished
+          - published
+        description: 'Get comments with status: published/unpublished'
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create comment
+      tags:
+      - Comment
+      parameters: []
+      responses:
+        '201':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+                author_id:
+                  type: integer
+              required:
+              - body
+              - author_id
+  "/api/v1/articles/{article_id}/comments/{id}":
+    parameters:
+    - name: article_id
+      in: path
+      description: article_id
+      required: true
+      schema:
+        type: string
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show comment
+      tags:
+      - Comment
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update comment
+      tags:
+      - Comment
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+                author_id:
+                  type: integer
+                status:
+                  type: string
+                  enum:
+                  - unpublished
+                  - published
+              required: false
+    put:
+      summary: update comment
+      tags:
+      - Comment
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+                author_id:
+                  type: integer
+                status:
+                  type: string
+                  enum:
+                  - unpublished
+                  - published
+              required: false
+    delete:
+      summary: delete comment
+      tags:
+      - Comment
+      responses:
+        '200':
+          description: Delete
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: 127.0.0.1:3000/
