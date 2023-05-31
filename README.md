@@ -1,5 +1,7 @@
 # README
 
+Ruby on Rails backend API for Blog
+
 ## How to use
 Type in console:
 
