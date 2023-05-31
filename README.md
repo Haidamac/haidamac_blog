@@ -4,12 +4,8 @@
 Type in console:
 
 ```ruby
-git clone https://github.com/Haidamac/RubyHW.git
+git clone https://github.com/Haidamac/haidamac_blog.git
 ```
-
-```ruby
-cd RubyHW/HW9
-````
 
 ```ruby
 gem install bundler
